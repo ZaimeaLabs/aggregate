@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace ZaimeaLabs\Aggregate;
 
+use Carbon\CarbonInterface;
 use Carbon\CarbonPeriod;
 use Error;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
 class Aggregate
@@ -22,16 +22,16 @@ class Aggregate
     /**
      * The start date of query.
      *
-     * @var \Carbon\Carbon
+     * @var \Carbon\CarbonInterface
      */
-    public Carbon $start;
+    public CarbonInterface $start;
 
     /**
      * The end date of query.
      *
-     * @var \Carbon\Carbon
+     * @var \Carbon\CarbonInterface
      */
-    public Carbon $end;
+    public CarbonInterface $end;
 
     /**
      * The date column of query.
@@ -87,8 +87,8 @@ class Aggregate
     /**
      * Set query between dates.
      *
-     * @param \Carbon\Carbon $start
-     * @param \Carbon\Carbon $end
+     * @param \Carbon\CarbonInterface $start
+     * @param \Carbon\CarbonInterface $end
      * @return self
      */
     public function between($start, $end): self
@@ -140,6 +140,16 @@ class Aggregate
     public function perDay(): self
     {
         return $this->interval('day');
+    }
+
+    /**
+     * Set the interval per weeks.
+     *
+     * @return self
+     */
+    public function perWeek(): self
+    {
+        return $this->interval('week');
     }
 
     /**
@@ -331,7 +341,7 @@ class Aggregate
     public function mapValuesToDates(Collection $values): Collection
     {
         $placeholders = $this->getDatePeriod()->map(
-            function (Carbon $date) use ($values) {
+            function (CarbonInterface $date) use ($values) {
                 return collect($values->first())
                                 ->put('date', $date->format($this->getCarbonDateFormat()))
                                 ->put('aggregate', "0")->toArray();
@@ -345,10 +355,10 @@ class Aggregate
         });
 
         return $values
-        ->merge($merge)
-        ->unique('date')
-        ->sortBy('date')
-        ->flatten();
+            ->merge($merge)
+            ->unique('date')
+            ->sortBy('date')
+            ->flatten();
     }
 
     /**
@@ -423,6 +433,7 @@ class Aggregate
             'minute' => 'Y-m-d H:i:00',
             'hour' => 'Y-m-d H:00',
             'day' => 'Y-m-d',
+            'week' => 'Y-W',
             'month' => 'Y-m',
             'year' => 'Y',
             default => throw new Error('Invalid interval.'),
@@ -440,7 +451,6 @@ class Aggregate
             'mysql', 'mariadb' => new Adapters\MySqlAdapter(),
             'sqlite' => new Adapters\SqliteAdapter(),
             'pgsql' => new Adapters\PgsqlAdapter(),
-            'sqlsrv' => new Adapters\SqlServerAdapter(),
             default => throw new Error('Unsupported database driver.'),
         };
 
