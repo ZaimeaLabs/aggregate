@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ZaimeaLabs\Aggregate;
+namespace Zaimea\Aggregate;
 
 use Carbon\CarbonInterface;
 use Carbon\CarbonPeriod;

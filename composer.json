@@ -1,11 +1,12 @@
 {
-    "name": "zaimealabs/aggregate",
+    "name": "zaimea/aggregate",
     "license": "MIT",
     "homepage": "https://zaimea.com",
     "description": "The ZaimeaLabs Aggregate package.",
     "keywords": [
         "aggregate",
         "laravel",
+        "zaimea",
         "zaimealabs"
     ],
     "authors": [
@@ -16,18 +17,19 @@
     ],
     "require": {
         "php": "^8.2",
-        "illuminate/contracts": "^10.0|^11.0|^12.0"
+        "illuminate/contracts": "^12.0"
     },
     "require-dev": {
-        "nunomaduro/collision": "^7.0|^8.0",
-        "orchestra/testbench": "^8.0|^9.0|^10.0",
-        "pestphp/pest": "^2.0|^3.0",
-        "pestphp/pest-plugin-laravel": "^2.0|^3.0",
-        "vimeo/psalm": "^5.0|^6.0"
+        "nunomaduro/collision": "^8.0",
+        "orchestra/testbench": "^10.0",
+        "phpstan/phpstan": "^1.12.23",
+        "pestphp/pest": "^3.0",
+        "pestphp/pest-plugin-laravel": "^3.0",
+        "vimeo/psalm": "^6.0"
     },
     "autoload": {
         "psr-4": {
-            "ZaimeaLabs\\Aggregate\\": ""
+            "Zaimea\\Aggregate\\": "src/"
         }
     },
     "autoload-dev": {

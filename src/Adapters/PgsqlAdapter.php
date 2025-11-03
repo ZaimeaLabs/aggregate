@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace ZaimeaLabs\Aggregate\Adapters;
+namespace Zaimea\Aggregate\Adapters;
 
 use Error;
 
-class MySqlAdapter extends AbstractAdapter
+class PgsqlAdapter extends AbstractAdapter
 {
     /**
-     * Define the format for MySql.
+     * Define the format for Pgsql.
      *
      * @param  string  $column
      * @param  string  $interval
@@ -18,31 +18,31 @@ class MySqlAdapter extends AbstractAdapter
     public function format(string $column, string $interval): string
     {
         $format = match ($interval) {
-            'minute' => '%Y-%m-%d %H:%i:00',
-            'hour' => '%Y-%m-%d %H:00',
-            'day' => '%Y-%m-%d',
-            'week' => '%Y-%u',
-            'month' => '%Y-%m',
-            'year' => '%Y',
+            'minute' => 'YYYY-MM-DD HH24:MI:00',
+            'hour' => 'YYYY-MM-DD HH24:00:00',
+            'day' => 'YYYY-MM-DD',
+            'week' => 'IYYY-IW',
+            'month' => 'YYYY-MM',
+            'year' => 'YYYY',
             default => throw new Error('Invalid interval.'),
         };
 
-        return "date_format({$column}, '{$format}')";
+        return "to_char(\"{$column}\", '{$format}')";
     }
 
     /**
-     * Define the sum Time format for MySql.
+     * Define the sum Time format for Pgsql.
      *
      * @param  string  $column
      * @return string
      */
     public function sumTime(string $column): string
     {
-        return "TIME_TO_SEC({$column})";
+        return "EXTRACT(EPOCH FROM \"{$column}\")";
     }
 
     /**
-     * Define the cumulative format for MySql.
+     * Define the cumulative format for Pgsql.
      *
      * @param  string  $column
      * @param  string  $dateAlias
@@ -50,11 +50,11 @@ class MySqlAdapter extends AbstractAdapter
      */
     public function cumulative(string $column, string $dateAlias): string
     {
-        return "SUM({$column})) OVER (ORDER BY `{$dateAlias}`";
+        return throw new Error('Pgsql not done for cumulative.');
     }
 
     /**
-     * Define the cumulative time format for MySql.
+     * Define the cumulative time format for Pgsql.
      *
      * @param  string  $column
      * @param  string  $dateAlias
@@ -62,6 +62,6 @@ class MySqlAdapter extends AbstractAdapter
      */
     public function cumulativeTime(string $column, string $dateAlias): string
     {
-        return "SUM(TIME_TO_SEC({$column}))) OVER (ORDER BY `{$dateAlias}`";
+        return throw new Error('Pgsql not done for cumulativeTime.');
     }
 }

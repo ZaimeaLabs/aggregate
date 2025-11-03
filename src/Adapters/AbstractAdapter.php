@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ZaimeaLabs\Aggregate\Adapters;
+namespace Zaimea\Aggregate\Adapters;
 
 abstract class AbstractAdapter
 {

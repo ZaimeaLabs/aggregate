@@ -4,30 +4,12 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Schema;
 use Tests\Fixtures\UserAggregateTest;
 use Tests\TestCase;
-use ZaimeaLabs\Aggregate\Aggregate;
+use Zaimea\Aggregate\Aggregate;
 
 class AggregatesTest extends TestCase
 {
-    use RefreshDatabase;
-
-    protected function afterRefreshingDatabase()
-    {
-        Schema::dropIfExists('users');
-
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->integer('t')->nullable();
-            $table->time('d')->nullable();
-            $table->timestamps();
-        });
-    }
-
     public function test_it_can_get_perMonth_with_interval_one_year()
     {
         UserAggregateTest::create(['name' => 'Custura Laurentiu', 'created_at' => now()]);

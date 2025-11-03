@@ -4,21 +4,34 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Orchestra\Testbench\Concerns\WithWorkbench;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 abstract class TestCase extends OrchestraTestCase
 {
-    use RefreshDatabase, WithWorkbench;
+    protected function getEnvironmentSetUp($app)
+    {
+        $app['config']->set('database.default', 'testing');
+        $app['config']->set('database.connections.testing', [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+        ]);
+    }
 
     protected function setUp(): void
     {
         parent::setUp();
-    }
 
-    protected function defineEnvironment($app)
-    {
-        $app['config']->set('database.default', 'testing');
+        Schema::dropIfExists('users');
+
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->integer('t')->nullable();
+            $table->time('d')->nullable();
+            $table->timestamps();
+        });
     }
 }
