@@ -7,4 +7,4 @@ sidebar: true
 rightbar: false
 ---
 
-All notable changes to commonmark-steps are documented [on GitHub](https://github.com/zaimealabs/commonmark-steps/blob/main/CHANGELOG.md)
+All notable changes to Aggregate are documented [on GitHub](https://github.com/zaimealabs/aggregate/blob/main/CHANGELOG.md)
