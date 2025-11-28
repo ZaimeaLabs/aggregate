@@ -1,7 +1,7 @@
-<p align="center"><img src=".github/aggregate.svg" alt="Aggregate" width="300">
+<p align="center"><img src=".github/logo.svg" alt="Aggregate" width="300">
 
 <p align="center">
-    <a href="https://github.com/zaimealabs/aggregate/actions"><img src="https://github.com/zaimealabs/aggregate/actions/workflows/aggregate-tests.yml/badge.svg" alt="Build Status"></a>
+    <a href="https://github.com/zaimealabs/aggregate/actions"><img src="https://github.com/zaimealabs/aggregate/actions/workflows/tests.yml/badge.svg" alt="Build Status"></a>
     <a href="https://packagist.org/packages/zaimea/aggregate"><img src="https://img.shields.io/packagist/dt/zaimea/aggregate" alt="Total Downloads"></a>
     <a href="https://packagist.org/packages/zaimea/aggregate"><img src="https://img.shields.io/packagist/v/zaimea/aggregate" alt="Latest Stable Version"></a>
     <a href="https://packagist.org/packages/zaimea/aggregate"><img src="https://img.shields.io/packagist/l/zaimea/aggregate" alt="License"></a>
