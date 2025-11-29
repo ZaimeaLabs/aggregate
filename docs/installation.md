@@ -1,7 +1,7 @@
 ---
 title: How to install package
 description: How to install package
-github: https://github.com/zaimealabs/aggregate/edit/main/docs
+github: https://github.com/zaimealabs/aggregate/edit/main/docs/
 onThisArticle: true
 sidebar: true
 rightbar: true
